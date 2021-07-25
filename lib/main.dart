@@ -1,54 +1,9 @@
-import 'dart:io';
-
+import 'package:angry_kitty/src/utilities/utilities.dart';
 import 'package:flutter/material.dart';
-import 'package:process_run/cmd_run.dart';
-import 'package:window_to_front/window_to_front.dart';
-import 'github_oauth_credentials.dart';
-import 'src/github_login.dart';
-import 'src/github_summary.dart';
-
-findApp() async {
-  // var result = await Process.run(
-  //     'echo', ['-i', 'main', 'github_oauth_credentials.dart']);
-
-  // stdout.write(result.stdout);
-  // stderr.write(result.stderr);
-
-  try {
-    var result = await runExecutableArguments(
-      'sh',
-      ['bash/commandExist.sh', 'firebase', '-v'],
-      workingDirectory: './',
-      verbose: false,
-    );
-    print(result.exitCode);
-    print(result.stderr);
-  } catch (e) {
-    print(e);
-  }
-}
-
-findFile() async {
-  String directory = Directory('/').path;
-  List<FileSystemEntity> files =
-      Directory(directory).listSync(recursive: false);
-
-  List<String> filePaths = [];
-  for (var fileSystemEntity in files) {
-    print(fileSystemEntity.path);
-
-    if (fileSystemEntity.path.contains('main')) {
-      filePaths.add(fileSystemEntity.path);
-    }
-  }
-
-  print(filePaths);
-}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
-  findApp();
-  // findFile();
 }
 
 class MyApp extends StatelessWidget {
@@ -71,19 +26,97 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GithubLoginWidget(
-      builder: (context, client) {
-        WindowToFront.activate();
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-          ),
-          body: GitHubSummary(client: client),
-        );
-      },
-      githubClientId: githubClientId,
-      githubClientSecret: githubClientSecret,
-      githubScopes: githubScopes,
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            // StreamBuilder(
+            //   stream:
+            //       applicationFinder(applicationName: 'com.microsoft.VSCode'),
+            //   builder:
+            //       (BuildContext context, AsyncSnapshot<BashStatus?> snapshot) {
+            //     if (snapshot.data == BashStatus.loading) {
+            //       return CircularProgressIndicator();
+            //     } else if (snapshot.data == BashStatus.found) {
+            //       return Text(snapshot.data.toString());
+            //     } else {
+            //       return Text('Nope');
+            //     }
+            //   },
+            // ),
+            // StreamBuilder(
+            //   stream: commandFinder(commandName: 'code'),
+            //   builder:
+            //       (BuildContext context, AsyncSnapshot<BashStatus?> snapshot) {
+            //     if (snapshot.data == BashStatus.loading) {
+            //       return CircularProgressIndicator();
+            //     } else if (snapshot.data == BashStatus.found) {
+            //       return Text(snapshot.data.toString());
+            //     } else {
+            //       return Text('Nope');
+            //     }
+            //   },
+            // ),
+            // StreamBuilder(
+            //   stream: fileFinder(
+            //       fileDirectory:
+            //           '/Users/samed/Documents/Projects/Grover/angry_kitty/lib',
+            //       fileName: 'main'),
+            //   builder:
+            //       (BuildContext context, AsyncSnapshot<FileStatus?> snapshot) {
+            //     if (snapshot.data == FileStatus.loading) {
+            //       return CircularProgressIndicator();
+            //     } else if (snapshot.data == FileStatus.found) {
+            //       return Text(snapshot.data.toString());
+            //     } else {
+            //       return Text('Nope');
+            //     }
+            //   },
+            // ),
+            // StreamBuilder(
+            //   stream: packageInstaller(package: Package.OnePassword),
+            //   builder: (BuildContext context,
+            //       AsyncSnapshot<InstallerStatus?> snapshot) {
+            //     if (snapshot.data == InstallerStatus.loading) {
+            //       return CircularProgressIndicator();
+            //     } else if (snapshot.data == InstallerStatus.found) {
+            //       return Text(snapshot.data.toString());
+            //     } else {
+            //       return Text('Nope');
+            //     }
+            //   },
+            // ),
+          ],
+        ),
+      ),
     );
+    // return GithubLoginWidget(
+    //   builder: (context, client) {
+    //     WindowToFront.activate();
+    //     return Scaffold(
+    //       appBar: AppBar(
+    //         title: Text(title),
+    //       ),
+    //       body: Column(
+    //         children: [
+    //           StreamBuilder(
+    //             stream: applicationFinder(applicationName: 'App Store'),
+    //             builder:
+    //                 (BuildContext context, AsyncSnapshot<BashStatus> snapshot) {
+    //               if (snapshot.hasData) {
+    //                 return Text(snapshot.data.toString());
+    //               } else {
+    //                 return CircularProgressIndicator();
+    //               }
+    //             },
+    //           )
+    //         ],
+    //       ),
+    //     );
+    //   },
+    //   githubClientId: githubClientId,
+    //   githubClientSecret: githubClientSecret,
+    //   githubScopes: githubScopes,
+    // );
   }
 }

@@ -1,5 +1,5 @@
 whichapp() {
-  local appNameOrBundleId=$1 isAppName=0 bundleId
+  local appNameOrBundleId=$@ isAppName=0 bundleId
     echo "Searching for app $appNameOrBundleId"
   # Determine whether an app *name* or *bundle ID* was specified.
   [[ $appNameOrBundleId =~ \.[aA][pP][pP]$ || $appNameOrBundleId =~ ^[^.]+$ ]] && isAppName=1
@@ -21,4 +21,4 @@ whichapp() {
   fi
 }
 
-whichapp $1
+whichapp $@
